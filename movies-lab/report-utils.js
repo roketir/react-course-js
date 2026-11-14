@@ -13,9 +13,12 @@ export const getOscarsLine = movie => `Oscars:${movie.awards?.oscars ?? 0}`;
 export const sortByYear = movies => [...movies].sort((a, b) => a.year - b.year);
 
 export const markAsWatched = (movies, id) => {
-  const movie = movies.find(movie => movie.id === id);
-  movie.watched = true;
-  return movies;
+  const copy = [...movies];
+  const movie = copy.find(movie => movie.id === id);
+  const movieCopy = { ...movie };
+  movieCopy.watched = true;
+  copy[copy.indexOf(movie)] = movieCopy;
+  return copy;
 };
 
 export const renameActor = (movie, index, newName) => {
